@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Simples from './componente/Simples';
-import ParImpar from './componente/ParImpar';
-import Inverter, { MegaSena } from './componente/Multi';
+
 
 export default class App extends Component {
 	render() {
