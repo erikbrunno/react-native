@@ -7,9 +7,17 @@ import Inverter, { MegaSena } from './componente/Multi';
 import Contador from './componente/Contador';
 import Plataforma from './componente/Plataforma';
 import ValidarProps from './componente/ValidarProps';
+import Evento from './componente/Evento';
+import Avo from './componente/comunicacaoDireta';
 
 export default createDrawerNavigator({
 
+    Avo: {
+        screen: () => <Avo nome='Joao' sobrenome='Silva' />
+    },
+    Evento: {
+        screen: Evento
+    },
     ValidarProps: {
         screen: () => <ValidarProps label='Ano atual' ano={19} />
     },
