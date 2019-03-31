@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native'
 import Icon from '@expo/vector-icons/FontAwesome'
 import moment from 'moment'
 import 'moment/locale/pt-br'
@@ -11,22 +11,29 @@ export default props => {
         check = (
             <View style={styles.done}>
                 <Icon name='check' size={20}
-                    color={commonStyles.colors.secondary} />
+                    color={commonStyles.colors.secondary}/>
             </View>
         )
     } else {
-        check = <View style={styles.pending} />
+        check = <View style={styles.pending}/>
     }
 
-    const descStyle = props.doneAt !== null ? { textDecorationLine: 'line-through' } : {}
+    const descStyle = props.doneAt !== null ? 
+        { textDecorationLine: 'line-through' } : {}
 
     return (
         <View style={styles.container}>
-           <View style={styles.checkContainer}>{check}</View>
-           <View style={[styles.description, descStyle]}>
-                {props.desc}
-           </View>
-           <Text style={styles.date}>{moment(props.estimateAt).locale('pt-br').format('ddd, d [de] MMMM')}</Text>
+           <TouchableWithoutFeedback onPress={() => props.toggleTask(props.id)}>
+                <View style={styles.checkContainer}>{check}</View>
+           </TouchableWithoutFeedback>
+           <View>
+               <Text style={[styles.description, descStyle]}>
+                    {props.desc}
+                </Text>
+                <Text style={styles.date}>
+                    {moment(props.estimateAt).locale('pt-br').format('ddd, D [de] MMMM')}
+                </Text>
+        </View>
         </View>
     )
 }
@@ -55,7 +62,9 @@ const styles = StyleSheet.create({
         height: 25,
         width: 25,
         borderRadius: 15,
-        borderColor: '#4D7031'
+        backgroundColor: '#4D7031',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     description: {
         color: commonStyles.colors.mainText,
@@ -63,6 +72,6 @@ const styles = StyleSheet.create({
     },
     date: {
         color: commonStyles.colors.subText,
-        fontSize: 12,
+        fontSize: 12
     }
 })
