@@ -4,19 +4,19 @@ import {
     View,
     Text,
     TextInput,
-    DatePickerIOS,
     StyleSheet,
     TouchableWithoutFeedback,
     TouchableOpacity,
     Alert
 } from 'react-native'
+import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
 import commonSyles from '../commonStyles'
 
 const initialState =  { desc: '', date: new Date() }
 
 export default class AddTask extends Component {
-    state = {...initialStates}
+    state = {...initialState}
 
     save = () => {
 
@@ -43,7 +43,7 @@ export default class AddTask extends Component {
                     <TextInput placeholder="Descricao" style={styles.input}
                         onChangeText={desc => this.setState({ desc })} 
                         value={this.state.desc} />
-                    <DatePickerIOS mode='date' date={this.state.date}
+                    <DatePicker mode='date' date={this.state.date}
                         onDateChange={date => this.setState({ date })} />
                     <View styles={{
                         flexDirection: 'row',

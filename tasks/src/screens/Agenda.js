@@ -49,7 +49,6 @@ export default class Agenda extends Component {
     }
     
     addTask = task => {
-     
         const tasks = [...this.state.tasks]
         tasks.push({
             id: Math.random(),
@@ -57,8 +56,7 @@ export default class Agenda extends Component {
             estimateAt: task.date,
             doneAt: null
         })
-
-        this.setState({tasks, filterTask})
+        this.setState({ tasks, showAddTask: false }, this.filterTask)
     }
 
     filterTask= () => {
@@ -97,7 +95,7 @@ export default class Agenda extends Component {
             <View style={styles.container}>
                 <AddTask isVisible={this.state.showAddTask}
                     onSave={this.addTask}
-                    onCancel={() => this.setState({showAddTask: false}) } />
+                    onCancel={() => this.setState({ showAddTask: false })} />
                 <ImageBackground source={todayImage} 
                     style={styles.background}>
                     
@@ -120,7 +118,7 @@ export default class Agenda extends Component {
                         renderItem={({item}) => 
                             <Task {...item} toggleTask={this.toggleTask}/> }></FlatList>
                 </View>
-                <Button color={commonStyles.colors.today} title="Salvar"
+                <Button color={commonStyles.colors.today} title="Adicionar"
                     onPress={() => { this.setState({ showAddTask: true}) }} />
             </View>
         )
@@ -154,7 +152,7 @@ const styles = StyleSheet.create({
         flex: 7
     },
     iconBar: {
-        marginTop: Platform.OS === 'ios' ? 30 : 10,
+        marginTop: Platform.OS === 'ios' ? 30 : 25,
         marginHorizontal: 20,
         flexDirection: 'row',
         justifyContent: 'flex-end'
