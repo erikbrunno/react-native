@@ -7,7 +7,8 @@ import {
     FlatList,
     TouchableOpacity,
     Platform,
-    Button
+    Button,
+    AsyncStorage
 } from 'react-native'
 import moment from 'moment'
 import 'moment/locale/pt-br'
@@ -21,28 +22,7 @@ import AddTask from '../components/addTask';
 export default class Agenda extends Component {
     
     state = {
-        tasks: [
-            {id: Math.random(), desc: 'Estudando React Native',
-                estimateAt: new Date, doneAt: new Date() },
-            {id: Math.random(), desc: 'Terminar o curso React Native',
-                estimateAt: new Date, doneAt: null }, 
-            {id: Math.random(), desc: 'Estudando React Native',
-                estimateAt: new Date, doneAt: new Date() },
-            {id: Math.random(), desc: 'Terminar o curso React Native',
-                estimateAt: new Date, doneAt: null }, 
-            {id: Math.random(), desc: 'Estudando React Native',
-                estimateAt: new Date, doneAt: new Date() },
-            {id: Math.random(), desc: 'Terminar o curso React Native',
-                estimateAt: new Date, doneAt: null }, 
-            {id: Math.random(), desc: 'Estudando React Native',
-                estimateAt: new Date, doneAt: new Date() },
-            {id: Math.random(), desc: 'Terminar o curso React Native',
-                estimateAt: new Date, doneAt: null }, 
-            {id: Math.random(), desc: 'Estudando React Native',
-                estimateAt: new Date, doneAt: new Date() },
-            {id: Math.random(), desc: 'Terminar o curso React Native',
-                estimateAt: new Date, doneAt: null }, 
-        ],
+        tasks: [],
         visibleTask: [],
         showDoneTask: true,
         showAddTask: false,
@@ -73,15 +53,19 @@ export default class Agenda extends Component {
             visibleTask = this.state.tasks.filter(pending)
         }
         this.setState({visibleTask})
-
+        AsyncStorage.setItem('tasks', JSON.stringify(this.state.tasks))
     }
 
     toggleFilter= () => {
         this.setState({ showDoneTask: !this.state.showDoneTask }, this.filterTask)
     }
 
-    componentDidMount = () => {
-        this.filterTask()
+    componentDidMount =  async() => {
+        
+        const data = await AsyncStorage.getItem('tasks')
+        const tasks = JSON.parse(data) || []
+        this.setState({ tasks}, this.filterTask)
+
     }
 
     toggleTask = id => {
