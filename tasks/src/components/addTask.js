@@ -13,10 +13,10 @@ import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
 import commonSyles from '../commonStyles'
 
-const initialState =  { desc: '', date: new Date() }
+const initialStates =  { desc: '', date: new Date() }
 
 export default class AddTask extends Component {
-    state = {...initialState}
+    state = {...initialStates}
 
     save = () => {
 
@@ -27,7 +27,7 @@ export default class AddTask extends Component {
         
         const data = { ...this.state }
         this.props.onSave(data)
-        this.setState({ ...initialState })
+        this.setState({ ...initialStates })
     }
 
     render() {
