@@ -3,7 +3,7 @@ module.exports = {
     connection: {
       database: 'tasks',
       user:     'postgres',
-      password: ''
+      password: '123'
     },
     pool: {
       min: 2,
