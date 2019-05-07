@@ -13,10 +13,19 @@ import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
 import commonSyles from '../commonStyles'
 
-const initialStates =  { desc: '', date: new Date() }
-
 export default class AddTask extends Component {
-    state = {...initialStates}
+    
+    constructor(props) {
+        super(props)
+        this.state = this.getInitialState()
+    }
+
+    getInitialState = () => {
+        return {
+            desc: '',
+            date: new Date()
+        }
+    }
 
     save = () => {
 
@@ -27,14 +36,14 @@ export default class AddTask extends Component {
         
         const data = { ...this.state }
         this.props.onSave(data)
-        this.setState({ ...initialStates })
     }
 
     render() {
         return (
             <Modal onRequestClose={this.props.onCancel}
                 visible={this.props.isVisible}
-                animationType='slide' transparent={true}>
+                animationType='slide' transparent={true}
+                onShow={() => this.setState({ ...this.getInitialState()})}>
                 <TouchableWithoutFeedback onPress={this.props.onCancel}>
                     <View style={styles.offset}></View>
                 </TouchableWithoutFeedback>    
