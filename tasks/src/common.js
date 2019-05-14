@@ -1,6 +1,6 @@
 import { Alert, Platform } from 'react-native'
 
-const server = 'http://localhost:3000'
+const server = 'http://192.168.0.33:3000'
 
 function showError(err) {
     Alert.alert('Ocorreu um problema', `Mensagem: ${err}`)
