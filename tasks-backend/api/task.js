@@ -17,12 +17,15 @@ module.exports = app => {
     }
 
     const save = (req, res) => {
+		
         if(!req.body.desc.trim()) {
             return res.status(400).send('Descricao é um campo obrigátorio')
         }
 
-        req.body.userId = req.user.id
+        req.body.userid = req.user.id
 
+		console.log('Salvando...', req.body)
+		
         app.db('tasks')
             .insert(req.body)
             .then(_ => res.status(204).send())
@@ -31,7 +34,7 @@ module.exports = app => {
 
     const remove = (req, res) => {
         app.db('tasks')
-            .where({id: req.params.id, userId: req.user.id})
+            .where({id: req.params.id, userid: req.user.id})
             .del()
             .then(rowsDeleted  => {
                 if (rowsDeleted > 0) {
@@ -46,7 +49,7 @@ module.exports = app => {
 
     const updateTaskDoneAt = (req, res, doneAt) => {
         app.db('tasks')
-            .where({id: req.params.id, userId: req.user.id})
+            .where({id: req.params.id, userid: req.user.id})
             .update({ doneAt })
             .then(_ => res.status(204).send())
             .catch(err => res.status(400).json(err))
@@ -55,7 +58,7 @@ module.exports = app => {
     const toggleTask = (req, res) => {
 
         app.db('tasks')
-            .where({id: req.params.id, userId: req.user.id })
+            .where({id: req.params.id, userid: req.user.id })
             .first()
             .then(task => {
                 if (!task) {
