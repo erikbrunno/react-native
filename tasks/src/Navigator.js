@@ -5,7 +5,9 @@ import {
 } from 'react-navigation'
 import Menu from './screens/Menu'
 import Agenda from './screens/Agenda'
+import AuthOrApp from './screens/AuthOrApp'
 import Auth from './screens/Auth'
+import commonStyles from './commonStyles'
 
 const MenuRoutes ={
     Today: {
@@ -59,6 +61,10 @@ const MenuConfig = {
 const MenuNavigator = createDrawerNavigator(MenuRoutes, MenuConfig)
 
 const MainRoutes = {
+    Loading: {
+        name: 'Loading',
+        screen: AuthOrApp
+    },
     Auth: {
         name: 'Auth',
         screen: Auth
@@ -70,7 +76,7 @@ const MainRoutes = {
 }
 
 const MainNavigator = createSwitchNavigator(MainRoutes, {
-    initialRouteName: 'Auth'
+    initialRouteName: 'Loading'
 })
 
 export default MainNavigator
