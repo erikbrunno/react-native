@@ -5,7 +5,7 @@ import {
     Text,
     StyleSheet
 } from 'react-native'
-import { Gravatar} from 'react-native-gravatar';
+import { Gravatar } from 'react-native-gravatar';
 import { DrawerItems } from 'react-navigation'
 import commonsSyles from '../commonStyles'
 
